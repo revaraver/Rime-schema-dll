@@ -59,7 +59,7 @@ ascii_composer:
   switch_key:
     Caps_Lock: clear      # commit_code | commit_text | clear
     Shift_L: commit_code  # commit_code | commit_text | inline_ascii | clear | noop
-    Shift_R: commit_code         # commit_code | commit_text | inline_ascii | clear | noop
+    Shift_R: noop         # commit_code | commit_text | inline_ascii | clear | noop
     Control_L: noop       # commit_code | commit_text | inline_ascii | clear | noop
     Control_R: noop       # commit_code | commit_text | inline_ascii | clear | noop
 
@@ -159,6 +159,7 @@ recognizer:
     underscore: "^[A-Za-z]+_.*"  # 下划线不上屏
     # url_2: "^[A-Za-z]+[.].*"   # 句号不上屏，支持 google.com abc.txt 等网址或文件名，使用句号翻页时需要注释掉
     # colon: "^[A-Za-z]+:.*"     # 冒号不上屏
+    
 
 
 # 快捷键
@@ -180,8 +181,14 @@ key_binder:
     # - { when: composing, accept: Alt+Right, send: Shift+Right }
 
     # 翻页 , .
-    - { when: has_menu, accept: comma, send: Page_Up }  # 上一页设置为 paging 时会导致直接上屏并输出减号
-    - { when: has_menu, accept: period, send: Page_Down }
+    # - { when: has_menu, accept: comma, send: Page_Up }  # 上一页设置为 paging 时会导致直接上屏并输出减号
+    # - { when: has_menu, accept: period, send: Page_Down }
+    # 翻页 , .
+    - { when: has_menu, accept: Left, send: Page_Up }  # 上一页设置为 paging 时会导致直接上屏并输出减号
+    - { when: has_menu, accept: Right, send: Page_Down }
+    # 翻页 , .
+    # - { when: has_menu, accept: Up, send: Page_Up }  # 上一页设置为 paging 时会导致直接上屏并输出减号
+    # - { when: has_menu, accept: Down, send: Page_Down }
 
     # 翻页 , .
     # - { when: paging, accept: comma, send: Page_Up }

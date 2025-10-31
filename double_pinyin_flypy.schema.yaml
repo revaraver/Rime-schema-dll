@@ -57,41 +57,40 @@ engine:
     - recognizer
     - key_binder
     - speller
-    - punctuator
+    # - punctuator
     - selector
-    - navigator
+    # - navigator
     - express_editor
   segmentors:
     - ascii_segmentor
     - matcher
     - abc_segmentor
     - affix_segmentor@radical_lookup  # 部件拆字自定义 tag
-    - punct_segmentor
+    # - punct_segmentor
     - fallback_segmentor
   translators:
-    - punct_translator
+    # - punct_translator
     - script_translator
-    - lua_translator@*date_translator    # 时间、日期、星期
-    - lua_translator@*lunar              # 农历
+    # - lua_translator@*date_translator    # 时间、日期、星期
+    # - lua_translator@*lunar              # 农历
     - table_translator@custom_phrase     # 自定义短语 custom_phrase_double.txt
     - table_translator@melt_eng          # 英文输入
-    - table_translator@cn_en             # 中英混合词汇
+    # - table_translator@cn_en             # 中英混合词汇 
     - table_translator@radical_lookup    # 部件拆字反查
-    - lua_translator@*unicode            # Unicode
-    - lua_translator@*number_translator  # 数字、金额大写
-    - lua_translator@*calc_translator    # 计算器
-    - lua_translator@*force_gc           # 暴力 GC
+    # - lua_translator@*unicode            # Unicode
+    # - lua_translator@*number_translator  # 数字、金额大写
+    # - lua_translator@*calc_translator    # 计算器
+    # - lua_translator@*force_gc           # 暴力 GC
   filters:
     - lua_filter@*corrector                         # 错音错字提示
     - reverse_lookup_filter@radical_reverse_lookup  # 部件拆字滤镜
-    - lua_filter@*autocap_filter                    # 英文自动大写
+    # - lua_filter@*autocap_filter                    # 英文自动大写
     - lua_filter@*pin_cand_filter                   # 置顶候选项（顺序要求：置顶候选项 > Emoji > 简繁切换）
     - lua_filter@*reduce_english_filter             # 降低部分英语单词在候选项的位置
-    - simplifier@emoji                              # Emoji
+    # - simplifier@emoji                              # Emoji
     - simplifier@traditionalize                     # 简繁切换
     - lua_filter@*search@radical_pinyin             # 部件拆字辅码
-    - uniquifier                                    # 去重
-
+    # - uniquifier                                    # 去重
 
 # Lua 配置: 日期、时间、星期、ISO 8601、时间戳的触发关键字
 date_translator:
@@ -149,6 +148,7 @@ pin_cand_filter:
   - d	的
 
 
+
 # 主翻译器，拼音
 translator:
   dictionary: rime_ice          # 挂载词库 rime_ice.dict.yaml
@@ -161,43 +161,44 @@ translator:
     - xform/^/［/
     - xform/$/］/
   preedit_format:               # preedit_format 影响到输入框的显示和“Shift+回车”上屏的字符
-    - xform/(^|[ '])aa/$1a/
-    - xform/(^|[ '])ee/$1e/
-    - xform/(^|[ '])oo/$1o/
-    - xform/([bpmfdtnljqx])n/$1iao/
-    - xform/(\w)g/$1eng/
-    - xform/(\w)q/$1iu/
-    - xform/(\w)w/$1ei/
-    - xform/([dtnlgkhjqxyvuirzcs])r/$1uan/
-    - xform/(\w)t/$1ve/
-    - xform/(\w)y/$1un/
-    - xform/([dtnlgkhvuirzcs])o/$1uo/
-    - xform/(\w)p/$1ie/
-    - xform/([jqx])s/$1iong/
-    - xform/(\w)s/$1ong/
-    - xform/(\w)d/$1ai/
-    - xform/(\w)f/$1en/
-    - xform/(\w)h/$1ang/
-    - xform/(\w)j/$1an/
-    - xform/([gkhvuirzcs])k/$1uai/
-    - xform/(\w)k/$1ing/
-    - xform/([jqxnlb])l/$1iang/
-    - xform/(\w)l/$1uang/
-    - xform/(\w)z/$1ou/
-    - xform/([gkhvuirzcs])x/$1ua/
-    - xform/(\w)x/$1ia/
-    - xform/(\w)c/$1ao/
-    - xform/([dtgkhvuirzcs])v/$1ui/
-    - xform/(\w)b/$1in/
-    - xform/(\w)m/$1ian/
-    - xform/([aoe])\1(\w)/$1$2/
-    - "xform/(^|[ '])v/$1zh/"
-    - "xform/(^|[ '])i/$1ch/"
-    - "xform/(^|[ '])u/$1sh/"
-    - xform/([jqxy])v/$1u/
-    - xform/([nl])v/$1ü/
-    - xform/ü/v/  # ü 显示为 v
-    - xform/(?<=[A-Z])\s(?=[A-Z])//  # 消除大写字母之间的空格
+    - "xform/(?<=[a-z])\\s(?=[a-z])//"   #去掉空格
+    # - xform/(^|[ '])aa/$1a/
+    # - xform/(^|[ '])ee/$1e/
+    # - xform/(^|[ '])oo/$1o/
+    # - xform/([bpmfdtnljqx])n/$1iao/
+    # - xform/(\w)g/$1eng/
+    # - xform/(\w)q/$1iu/
+    # - xform/(\w)w/$1ei/
+    # - xform/([dtnlgkhjqxyvuirzcs])r/$1uan/
+    # - xform/(\w)t/$1ve/
+    # - xform/(\w)y/$1un/
+    # - xform/([dtnlgkhvuirzcs])o/$1uo/
+    # - xform/(\w)p/$1ie/
+    # - xform/([jqx])s/$1iong/
+    # - xform/(\w)s/$1ong/
+    # - xform/(\w)d/$1ai/
+    # - xform/(\w)f/$1en/
+    # - xform/(\w)h/$1ang/
+    # - xform/(\w)j/$1an/
+    # - xform/([gkhvuirzcs])k/$1uai/
+    # - xform/(\w)k/$1ing/
+    # - xform/([jqxnlb])l/$1iang/
+    # - xform/(\w)l/$1uang/
+    # - xform/(\w)z/$1ou/
+    # - xform/([gkhvuirzcs])x/$1ua/
+    # - xform/(\w)x/$1ia/
+    # - xform/(\w)c/$1ao/
+    # - xform/([dtgkhvuirzcs])v/$1ui/
+    # - xform/(\w)b/$1in/
+    # - xform/(\w)m/$1ian/
+    # - xform/([aoe])\1(\w)/$1$2/
+    # - "xform/(^|[ '])v/$1zh/"
+    # - "xform/(^|[ '])i/$1ch/"
+    # - "xform/(^|[ '])u/$1sh/"
+    # - xform/([jqxy])v/$1u/
+    # - xform/([nl])v/$1ü/
+    # - xform/ü/v/  # ü 显示为 v
+    # - xform/(?<=[A-Z])\s(?=[A-Z])//  # 消除大写字母之间的空格
 
 
 # 次翻译器，英文
@@ -303,15 +304,17 @@ key_binder:
   # bindings:             # 也可以再增加方案专有的
 
 
+#commit_raw_input_and_send_space 自编译,发送原始字符后加一个空格
 # editor 用来定制操作键的行为，以下是默认行为 https://github.com/rime/librime/blob/master/src/rime/gear/editor.cc
 editor:
   bindings:
-    space: confirm                        # 空格键：上屏候选项
+    Space: comfirm                        # 空格键：
     Return: commit_raw_input              # 回车键：上屏原始输入
     Control+Return: commit_script_text    # Ctrl+回车键：上屏变换后输入（经过 preedit_format 转换的）
     Control+Shift+Return: commit_comment  # Ctrl+Shift+回车键：上屏 comment
     BackSpace: revert                     # 退格键：向前删除（撤消上次输入）
     Delete: delete                        # Delete 键：向后删除
+    Shift_R: commit_raw_input_and_send_space #发送原始字符后加一个空格
     Control+BackSpace: back_syllable      # Ctrl+退格键：删除一个音节
     Control+Delete: delete_candidate      # Ctrl+Delete键：删除或降权候选项
     Escape: cancel                        # Esc 键：取消输入
