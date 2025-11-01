@@ -304,17 +304,40 @@ key_binder:
   # bindings:             # 也可以再增加方案专有的
 
 
-#commit_raw_input_and_send_space 自编译,发送原始字符后加一个空格
+
 # editor 用来定制操作键的行为，以下是默认行为 https://github.com/rime/librime/blob/master/src/rime/gear/editor.cc
+    # {"confirm", &Editor::Confirm},
+    # {"toggle_selection", &Editor::ToggleSelection},
+    # {"commit_comment", &Editor::CommitComment},
+    # {"commit_raw_input", &Editor::CommitRawInput},
+    # {"commit_raw_input_and_send_space", &Editor::CommitRawInputAndSendSpace},
+    # {"commit_raw_input_and_send_enter", &Editor::CommitRawInputAndSendEnter},
+    # {"confirm_and_send_enter", &Editor::ConfirmAndSendEnter},
+    # {"confirm_and_send_space", &Editor::ConfirmAndSendSpace},
+    # {"commit_script_text", &Editor::CommitScriptText},
+    # {"commit_composition", &Editor::CommitComposition},
+    # {"revert", &Editor::RevertLastEdit},
+    # {"back", &Editor::BackToPreviousInput},
+    # {"back_syllable", &Editor::BackToPreviousSyllable},
+    # {"delete_candidate", &Editor::DeleteCandidate},
+    # {"delete", &Editor::DeleteChar},
+    # {"cancel", &Editor::CancelComposition},
+    # 自编译的有
+    # commit_raw_input_and_send_space #自编译,发送原始字符后加一个空格
+    # commit_raw_input_and_send_enter #发送原始字符后加一个回车
+    # confirm_and_send_space #上屏候选后发送一个空格
+    # confirm_and_send_enter #上屏候选后发送一个回车
+
 editor:
-  bindings:
-    Space: comfirm                        # 空格键：
+  bindings: 
+    space: confirm                        
     Return: commit_raw_input              # 回车键：上屏原始输入
-    Control+Return: commit_script_text    # Ctrl+回车键：上屏变换后输入（经过 preedit_format 转换的）
-    Control+Shift+Return: commit_comment  # Ctrl+Shift+回车键：上屏 comment
+    # Control+Return: commit_raw_input_and_send_enter    # Ctrl+回车键：上屏候选后发送回车
+    # Control+Shift+Return: commit_comment  # Ctrl+Shift+回车键：
     BackSpace: revert                     # 退格键：向前删除（撤消上次输入）
     Delete: delete                        # Delete 键：向后删除
-    Shift_R: commit_raw_input_and_send_space #发送原始字符后加一个空格
+    # Shift_L: commit_raw_input_and_send_space
+    Control+Return: confirm_and_send_space
     Control+BackSpace: back_syllable      # Ctrl+退格键：删除一个音节
     Control+Delete: delete_candidate      # Ctrl+Delete键：删除或降权候选项
     Escape: cancel                        # Esc 键：取消输入
